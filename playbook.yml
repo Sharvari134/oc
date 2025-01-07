@@ -38,7 +38,7 @@
         state: started
         enabled: yes
 
-     - name: Check status of Cassandra service
+    - name: Check status of Cassandra service
       systemd:
         name: cassandra
         state: started
