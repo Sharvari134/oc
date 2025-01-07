@@ -48,5 +48,13 @@ pipeline {
                 }
             }
         }
+        stage('Run Ansible Playbook') {
+            steps {
+                script {
+                    // Add command to run the Ansible playbook
+                    sh 'ansible-playbook -i aws_ec2.yaml playbook.yml'
+                }
+            }
+        }
     }
 }
