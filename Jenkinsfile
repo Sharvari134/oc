@@ -25,7 +25,7 @@ pipeline {
         }
         stage('Plan') {
             steps {
-                sh 'terraform plan -out=tfplan'
+                sh 'terraform plan -out tfplan'
                 sh 'terraform show -no-color tfplan > tfplan.txt'
             }
         }
@@ -39,22 +39,15 @@ pipeline {
                             parameters: [text(name: 'Plan', description: 'Please review the plan', defaultValue: plan)]
                         }
 
-                        sh 'terraform apply -input=false tfplan'
+                        sh 'terraform ${action} -input=false tfplan'
                     } else if (params.action == 'destroy') {
-                        sh 'terraform destroy --auto-approve'
+                        sh 'terraform ${action} --auto-approve'
                     } else {
                         error "Invalid action selected. Please choose either 'apply' or 'destroy'."
                     }
                 }
             }
         }
-        stage('Run Ansible Playbook') {
-            steps {
-                script {
-                    // Add command to run the Ansible playbook
-                    sh 'ansible-playbook -i aws_ec2.yaml playbook.yml'
-                }
-            }
-        }
+
     }
 }
