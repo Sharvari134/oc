@@ -259,7 +259,7 @@ resource "aws_autoscaling_group" "app_asg" {
 
   vpc_zone_identifier = aws_subnet.private_subnets[*].id
   desired_capacity    = 2
-  max_size            = 3
+  max_size            = 2
   min_size            = 1
   
 }
